@@ -12,6 +12,7 @@ async function run(): Promise<void> {
     const file1: string = core.getInput('file1', { required: true });
     const file2: string = core.getInput('file2', { required: true });
     const prNumber: number = parseInt(core.getInput('pr-number', { required: true }));
+    const failOnBreaking: boolean = core.getInput('fail_on_breaking') === 'true';
     core.debug(`File 1: ${file1}`);
     core.debug(`File 2: ${file2}`);
     core.debug(`PR Number: ${prNumber}`);
@@ -42,6 +43,11 @@ async function run(): Promise<void> {
         } else {
           core.info('No diff found, nothing more to do.');
           repo.deleteExistingComment();
+        }
+        if (failOnBreaking && result && !!result.breaking) {
+          throw new Error(
+            'Failing due to a breaking change detected in your API diff. Please check the diff comment on your pull request.',
+          );
         }
       });
 

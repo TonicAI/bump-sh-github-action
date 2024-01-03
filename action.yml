@@ -15,6 +15,9 @@ inputs:
   github-token:
     description: 'The GITHUB_TOKEN secret'
     required: true
+  fail_on_breaking:
+    description: 'Mark the action as failed when a breaking change is detected with the diff command. This is only valid when `diff` is provided in the command input.'
+    default: "false"
 runs:
   using: 'node16'
   main: 'dist/index.js'
