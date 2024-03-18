@@ -19,7 +19,7 @@ inputs:
     description: 'Mark the action as failed when a breaking change is detected with the diff command. This is only valid when `diff` is provided in the command input.'
     default: "false"
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   color: gray-dark
